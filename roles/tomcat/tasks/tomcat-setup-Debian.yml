@@ -93,6 +93,8 @@
       get_url:
         url: "{{ war_from_artifactory_url }}"
         dest: "{{ tomcat_webapps_path }}/{{ app_name }}.war"
+        url_username: "{{ artifactory_user }}"      # Nueva variable
+        url_password: "{{ artifactory_password }}"  # Nueva variable
         owner: tomcat
         group: tomcat
         mode: '0644'
@@ -102,3 +104,4 @@
   when:
     - deploy_artifact | bool
     - war_from_artifactory_url != ""
+  notify: restart_tomcat
